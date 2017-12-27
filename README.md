@@ -1,0 +1,1 @@
+Learning Python Django framework by implementing Wanteldy Skill list and skill recommendation REST webapp 
