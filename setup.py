@@ -9,11 +9,24 @@ setup(
     url='https://github.com/jimmy17x/wantedly_skill_list.git',
     packages=find_packages(),
     install_requires=[
-    	'Django==2.0',
+    	'certifi==2017.11.5',
+		'chardet==3.0.4',
+		'defusedxml==0.5.0',
+		'Django==2.0',
+		'django-allauth==0.34.0',
+		'django-rest-auth==0.9.2',
 		'djangorestframework==3.7.7',
-		'pytz==2017.3'
+		'djangorestframework-jwt==1.11.0',
+		'idna==2.6',
+		'oauthlib==2.0.6',
+		'PyJWT==1.5.3',
+		'python3-openid==3.1.0',
+		'pytz==2017.3',
+		'requests==2.18.4',
+		'requests-oauthlib==0.8.0',
+		'six==1.11.0',
+		'urllib3==1.22'
     ],
-    INSTALLED_APPS = (
-    'rest_framework',
-	)
+    
 )
+

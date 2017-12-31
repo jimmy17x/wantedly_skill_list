@@ -26,16 +26,57 @@ Install Django rest framework
 >pip install django djangorestframework
 
 
-Remember to keep the install_requires section of your setup.py file up-to-date with the latest installed dependencies. You can do this by running the following:
-> pip freeze
-Django==2.0
-djangorestframework==3.7.7
-pytz==2017.3
+
 
 Make a new Django app.
 wantedly_virtual_env> django-admin.py startproject wantedly_webapp
 
+Install rest-auth , jwt and allauth package
+>pip install django-rest-auth
+>pip install djangorestframework-jwt
+>pip install django-allauth
 
 
 
 
+
+
+Remember to keep the install_requires section of your setup.py file up-to-date with the latest installed dependencies. You can do this by running the following:
+> pip freeze
+
+certifi==2017.11.5
+chardet==3.0.4
+defusedxml==0.5.0
+Django==2.0
+django-allauth==0.34.0
+django-rest-auth==0.9.2
+djangorestframework==3.7.7
+djangorestframework-jwt==1.11.0
+idna==2.6
+oauthlib==2.0.6
+PyJWT==1.5.3
+python3-openid==3.1.0
+pytz==2017.3
+requests==2.18.4
+requests-oauthlib==0.8.0
+six==1.11.0
+urllib3==1.22
+
+
+Run >python manage.py migrate 
+to make all the necessary database changes, and then you will be able to start using these.
+
+jQuery JWT localStorage implementation -
+https://github.com/chaofz/jquery-jwt-auth/blob/master/index.html
+
+
+
+Database model :
+User , Skill , User_to_Skill  (Foreign key - user_id , skill_id, recommendation_id_array(comma seprated)) -  trade offs between creating a new table to store +1 on skill done by users in network vs O(20,0000) operartions processing  
+
+https://stackoverflow.com/questions/40125110/using-multiple-columns-as-foreignkey-to-return-in-another-table
+https://stackoverflow.com/questions/40125110/using-multiple-columns-as-foreignkey-to-return-in-another-table
+
+Scotch.io tutorials
+https://scotch.io/tutorials/build-a-rest-api-with-django-a-test-driven-approach-part-1
+https://scotch.io/tutorials/build-a-rest-api-with-django-a-test-driven-approach-part-2
