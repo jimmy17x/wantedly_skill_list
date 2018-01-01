@@ -9,5 +9,12 @@ class CreateView(generics.ListCreateAPIView):
     serializer_class = SkillListSerializer
 
     def perform_create(self, serializer):
-        """Save the post data when creating a new bucketlist."""
+        """Save the post data when creating a new skill list."""
         serializer.save()
+
+class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+    """This class handles the http GET, PUT and DELETE requests."""
+
+    queryset = SkillList.objects.all()
+    serializer_class = SkillListSerializer
+

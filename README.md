@@ -80,3 +80,6 @@ https://stackoverflow.com/questions/40125110/using-multiple-columns-as-foreignke
 Scotch.io tutorials
 https://scotch.io/tutorials/build-a-rest-api-with-django-a-test-driven-approach-part-1
 https://scotch.io/tutorials/build-a-rest-api-with-django-a-test-driven-approach-part-2
+
+Django Queries
+https://docs.djangoproject.com/en/2.0/topics/db/queries/
