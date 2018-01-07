@@ -83,3 +83,9 @@ https://scotch.io/tutorials/build-a-rest-api-with-django-a-test-driven-approach-
 
 Django Queries
 https://docs.djangoproject.com/en/2.0/topics/db/queries/
+
+
+Create a user using Django shell
+from django.contrib.auth.models import User
+user = User.objects.create_user(username='foo', email='foo@bar.com', password='bar')
+user.save()

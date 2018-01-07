@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'api',
     'rest_framework.authtoken',
+    'wantedly_webapp',
+
 
 ]
 
@@ -137,13 +139,9 @@ JWT_AUTH = {
 
 # Make JWT Auth the default authentication mechanism for Django
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
     ),
 }
 
@@ -153,5 +151,5 @@ REST_USE_JWT = True
 # django.contrib.sites dependency
 SITE_ID = 1
 
-#emails will be printed in your console
+#emails will be printed in your console while registration for testing
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

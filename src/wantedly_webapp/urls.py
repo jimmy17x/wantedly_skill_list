@@ -18,9 +18,7 @@ from django.urls import path
 from django.conf.urls import url
 from rest_framework_jwt.views import refresh_jwt_token
 from django.conf.urls import include
-from wantedly_webapp.views.test import test_view
-
-
+from wantedly_webapp.views.UserDetailsView import DetailsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +26,7 @@ urlpatterns = [
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^rest-auth/login/', include('rest_auth.registration.urls')),
     url(r'^refresh-token/', refresh_jwt_token),
+    url(r'^user/$', DetailsView.as_view(), name='rest_user_details'),
     url(r'^', include('api.urls'))
 
 ]
