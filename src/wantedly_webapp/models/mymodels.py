@@ -5,23 +5,22 @@ from django.db import models
 class Skill (models.Model):
     # this defines a required name that cannot be more than 100 characters.
     skill_name = models.CharField(max_length=100,unique=True)
-    # this defines an arbitrary length text field which is optional.
-    description = models.TextField(blank=True, default='')
 
-
+    class Meta:
+        app_label = "wantedly_webapp"
 
 # This class will more or less map to a table in the database and defines the many to many relationship between user-skill, this is our intermediate model
 class UserSkill(models.Model):
     """ A Model for representing skill in user profile """
     unique_together = (('user', 'skill_item'),)
 
-    user = models.ForeignKey('auth.User',on_delete=models.CASCADE)
+    user = models.ForeignKey('UserProfile',on_delete=models.CASCADE)
 
 	# Define a foreign key relating this model to the Skill model.
     # The parent user will be able to access it's skills with the related_name
     # 'all_user_skills'. When a parent is deleted, this will be deleted as well. 
     skill_item = models.ForeignKey(
-        'Skill',
+        Skill,
         related_name='all_user_skills', on_delete=models.CASCADE
     )
 
@@ -31,9 +30,9 @@ class UserSkill(models.Model):
 
 # this class adds a Many to Many field in existing django-rest auth UserProfile class for  user and his/her skills 
 class UserProfile(models.Model):
-	user = models.OneToOneField('auth.User',unqiue=True)
+	user = models.OneToOneField('auth.User',unique=True,on_delete=models.CASCADE)
 	user_skills = models.ManyToManyField(
-			'Skill',
+			Skill,
 			through='UserSkill',
 			through_fields=('user','skill_item')
 		)
