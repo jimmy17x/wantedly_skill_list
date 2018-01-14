@@ -89,3 +89,28 @@ Create a user using Django shell
 from django.contrib.auth.models import User
 user = User.objects.create_user(username='foo', email='foo@bar.com', password='bar')
 user.save()
+
+
+Playing with Modals in shell:
+
+Creating Skill
+
+from wantedly_webapp.models.mymodels import  *
+skill1 = Skill (skill_name="Java")
+skill2 = Skill (skill_name="Python")
+skill3 = Skill (skill_name="Django")
+
+
+Get all Users
+from django.contrib.auth.models import User
+users = User.objects.all()
+
+Length of array,tupple, list:
+len(array)
+
+Creating a user profile
+userprofile0=UserProfile(user=users[0]) - should be created as soon as a new User is created
+
+Adding a user skill
+skills = Skill.objects.all()
+userskill1 = UserSkill(user=users[1],skill_item=skills[0])
