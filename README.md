@@ -114,3 +114,8 @@ userprofile0=UserProfile(user=users[0]) - should be created as soon as a new Use
 Adding a user skill
 skills = Skill.objects.all()
 userskill1 = UserSkill(user=users[1],skill_item=skills[0])
+
+
+
+Django Class based view tutorial
+https://codeburst.io/building-an-api-with-django-rest-framework-and-class-based-views-75b369b30396

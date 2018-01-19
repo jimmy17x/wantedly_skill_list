@@ -14,14 +14,14 @@ class UserSkill(models.Model):
     """ A Model for representing skill in user profile """
     unique_together = (('user', 'skill_item'),)
 
-    user = models.ForeignKey('UserProfile',on_delete=models.CASCADE)
+    user = models.ForeignKey('UserProfile',on_delete=models.CASCADE,related_name='all_user_skills')
 
 	# Define a foreign key relating this model to the Skill model.
     # The parent user will be able to access it's skills with the related_name
     # 'all_user_skills'. When a parent is deleted, this will be deleted as well. 
     skill_item = models.ForeignKey(
         Skill,
-        related_name='all_user_skills', on_delete=models.CASCADE
+         on_delete=models.CASCADE
     )
 
     def __str__(self):
@@ -30,7 +30,7 @@ class UserSkill(models.Model):
 
 # this class adds a Many to Many field in existing django-rest auth UserProfile class for  user and his/her skills 
 class UserProfile(models.Model):
-	user = models.OneToOneField('auth.User',unique=True,on_delete=models.CASCADE)
+	user = models.OneToOneField('auth.User',unique=True,on_delete=models.CASCADE,related_name='user_profile')
 	user_skills = models.ManyToManyField(
 			Skill,
 			through='UserSkill',
