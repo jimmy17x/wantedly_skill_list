@@ -119,3 +119,7 @@ userskill1 = UserSkill(user=users[1],skill_item=skills[0])
 
 Django Class based view tutorial
 https://codeburst.io/building-an-api-with-django-rest-framework-and-class-based-views-75b369b30396
+
+
+Tutorial for adding GET POST HTTP request method in DRF
+https://realpython.com/blog/python/django-rest-framework-quick-start/

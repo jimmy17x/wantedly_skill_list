@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from wantedly_webapp.models.mymodels import c
+from wantedly_webapp.models.mymodels import UserSkillUpvotes
 
 
-class UserSkillSerializer(serializers.ModelSerializer):
+class UserSkillUpvotesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserSkillUpvotes
