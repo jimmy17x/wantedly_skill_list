@@ -1,11 +1,13 @@
 #import from django models module
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
 
 # This class will more or less map to a table in the database and defines skills at the application level
 class Skill (models.Model):
     # this defines a required name that cannot be more than 100 characters.
     skill_name = models.CharField(max_length=100,unique=True)
-
     class Meta:
         app_label = "wantedly_webapp"
 
@@ -14,15 +16,9 @@ class UserSkill(models.Model):
     """ A Model for representing skill in user profile """
     unique_together = (('user', 'skill_item'),)
 
-    user = models.ForeignKey('UserProfile',on_delete=models.CASCADE,related_name='all_user_skills')
+    user = models.ForeignKey('UserProfile',on_delete=models.CASCADE,related_name='current_user_skills')
 
-	# Define a foreign key relating this model to the Skill model.
-    # The parent user will be able to access it's skills with the related_name
-    # 'all_user_skills'. When a parent is deleted, this will be deleted as well. 
-    skill_item = models.ForeignKey(
-        Skill,
-         on_delete=models.CASCADE
-    )
+    skill_item = models.ForeignKey(Skill,on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         """Return a human readable representation of the model instance."""
@@ -34,8 +30,14 @@ class UserProfile(models.Model):
 	user_skills = models.ManyToManyField(
 			Skill,
 			through='UserSkill',
-			through_fields=('user','skill_item')
+			through_fields=('user','skill_item'),null=True
 		)
+#create user profile signal handler
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
 
 class UserSkillUpvotes(models.Model):
     unique_together = (('user_skill', 'upvote_by'),)

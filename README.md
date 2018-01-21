@@ -123,3 +123,9 @@ https://codeburst.io/building-an-api-with-django-rest-framework-and-class-based-
 
 Tutorial for adding GET POST HTTP request method in DRF
 https://realpython.com/blog/python/django-rest-framework-quick-start/
+
+
+Status messages on errors :
+{
+    "detail": "Signature has expired."
+}
