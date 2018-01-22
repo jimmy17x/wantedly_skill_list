@@ -30,7 +30,7 @@ class UserProfile(models.Model):
 	user_skills = models.ManyToManyField(
 			Skill,
 			through='UserSkill',
-			through_fields=('user','skill_item'),null=True
+			through_fields=('user','skill_item')
 		)
 #create user profile signal handler
 def create_user_profile(sender, instance, created, **kwargs):
