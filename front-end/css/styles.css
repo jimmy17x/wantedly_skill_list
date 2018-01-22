@@ -1,0 +1,53 @@
+body
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.deactive
+{
+	display:none;
+}
+
+.form-elements {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border:1px solid #00A4BB;
+  	
+}
+
+.form-elements:focus
+{
+	outline:none;
+	border-bottom: 2px solid #00A4BB;
+}
+
+.btn
+{
+	width:100%
+	padding:12px 12px;
+}
+
+.login-form
+{
+	margin:0 auto;
+	width:300px;
+	margin-top: 100px;	
+}
+
+.btn
+{
+	width:100%;
+	padding:15px;
+	background: #00A4BB;
+	border:none;
+	color:white;
+	cursor:pointer;
+	font-size:20px;
+}
+
+.btn:hover
+{
+	background: #00a4bb99;
+}
