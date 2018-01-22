@@ -9,8 +9,4 @@ class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
         fields = '__all__'
-        extra_kwargs = {
-            'skill_name': {
-                'validators': [],
-            }
-        }  
+        

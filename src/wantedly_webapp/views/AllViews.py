@@ -7,6 +7,7 @@ from wantedly_webapp.models.mymodels import UserSkill
 from wantedly_webapp.models.mymodels import UserProfile
 from wantedly_webapp.serializers.SkillSerializer import SkillSerializer
 from wantedly_webapp.serializers.UserSkillSerializer import UserSkillSerializer
+from wantedly_webapp.serializers.UserSkillSerializer import UserProfileSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.contrib.auth.models import User
@@ -45,26 +46,20 @@ def skill_element(request, pk):
 def user_skill_collection(request):
     if request.method == 'GET':
         try:
-            user = User.objects.get(pk=request.user.pk) # get the user key
-        except User.DoesNotExist:
+            user_profile = request.user.user_profile
+        except UserProfile.DoesNotExist:
             return HttpResponse(status=404)
-        print("------------->")
-        print(UserSkill.objects.all())
-        
-        serializer = UserProfileSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(UserSkill.objects.all())
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+        skills = list(user_profile.user_skills.all().values())
+        serializer = SkillSerializer(skills,many=True)
+        return Response(serializer.data)
     elif request.method == 'POST':
-
         current_user = User.objects.get(pk=request.data.get('user')) # get the user key
         user_profile_id = current_user.user_profile.pk # get the user profile from reverse relation in model
         data = { 'user':user_profile_id,'skill_item':request.data.get('skill_id')}
         serializer = UserSkillSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED) # note - the return response will have user_profile id of user and skill_id added 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)            
 
 

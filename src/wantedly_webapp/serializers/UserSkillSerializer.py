@@ -20,6 +20,8 @@ class UserSkillSerializer(serializers.ModelSerializer):
 		fields= ('user', 'skill_item')
 
 class UserProfileSerializer(serializers.ModelSerializer):
+	user_skills = SkillSerializer(many=True)
+
 	class Meta:
-		model:UserSkill
+		model=UserProfile
 		fields='__all__'
