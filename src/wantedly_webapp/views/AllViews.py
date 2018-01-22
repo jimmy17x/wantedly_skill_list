@@ -43,10 +43,10 @@ def skill_element(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET','POST'])
-def user_skill_collection(request):
+def user_skill_collection(request,pk):
     if request.method == 'GET':
         try:
-            user_profile = request.user.user_profile
+            user_profile = User.objects.get(pk=pk).user_profile # get user profile of the requested user
         except UserProfile.DoesNotExist:
             return HttpResponse(status=404)
         skills = list(user_profile.user_skills.all().values())

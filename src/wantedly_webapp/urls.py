@@ -32,6 +32,6 @@ urlpatterns = [
     url(r'^', include('api.urls')),
     url(r'^api/v1/skills/$', wantedly_app_views.skill_collection),
     url(r'^api/v1/skills/(?P<pk>[0-9]+)$', wantedly_app_views.skill_element),
-    url(r'^api/v1/user/skills/$', wantedly_app_views.user_skill_collection),
+    url(r'^api/v1/user/skills/(?P<pk>[0-9]+)$', wantedly_app_views.user_skill_collection),
 
 ]
