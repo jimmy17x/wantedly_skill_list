@@ -1,5 +1,8 @@
  $(document).ready(function() {
 
+    // pace plugin setup
+    $(document).ajaxStart(function() { Pace.restart(); });
+
     $('#knklkjlkljk').click(function() {
       $.ajax({
         type: 'GET',
