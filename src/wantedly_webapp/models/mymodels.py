@@ -41,7 +41,7 @@ post_save.connect(create_user_profile, sender=User)
 
 class UserSkillUpvotes(models.Model):
     unique_together = (('user_skill', 'upvote_by'),)
-    user_skill = models.ForeignKey('UserSkill',on_delete=models.CASCADE)
+    skill = models.ForeignKey('Skill',on_delete=models.CASCADE , related_name='all_upvote_for_user_skill')
     upvote_by =  models.ForeignKey('auth.User',on_delete=models.CASCADE , related_name='all_upvote_by_user') 
     upvote_for = models.ForeignKey('auth.User',on_delete=models.CASCADE , related_name='all_upvote_for_user')
 

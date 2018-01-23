@@ -1,5 +1,6 @@
  function redirectIfNotLoggedIn()
  {
+
     if(localStorage.token)
     {
        activateProfileDiv();
@@ -34,6 +35,11 @@ function somethingWentWrongHandler()
 
    alert("Something went wrong , please try again !");
    redirectIfNotLoggedIn();
+}
+
+function clearLocalStorage()
+{
+  localStorage.clear();
 }
 
 
@@ -104,7 +110,8 @@ function getUserSkills()
         }
       });
     });
+
     $('#logout').click(function() {
-      localStorage.clear();
+        clearLocalStorage();
     });
   });
