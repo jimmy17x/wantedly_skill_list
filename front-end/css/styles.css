@@ -2,6 +2,13 @@ body
 {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+#logout
+{
+	width:150px;
+	height:35px;
+	padding:7px;
+	margin-right:200px;
+}
 
 .deactive
 {
@@ -57,6 +64,11 @@ body
 {
 	text-align:center;
 	margin-top: 50px;
+}
+
+.right-float
+{
+	float:right;
 }
 
 

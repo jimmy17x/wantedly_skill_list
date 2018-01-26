@@ -13,6 +13,7 @@ from wantedly_webapp.serializers.UserSkillSerializer import UserSkillUpvotesSeri
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.contrib.auth.models import User
+import json
 
 
 @api_view(['GET','POST'],)
@@ -67,13 +68,34 @@ def user_skill_collection(request,pk):
 @api_view(['GET','POST'])
 def user_skill_upvotes(request,pk):
     if request.method == 'GET':
+        #get all user skills
         try:
-            user_skill_upvotes = list(UserSkillUpvotes.objects.filter(upvote_for=pk)) # get all upvotes on skills of the requested user
+            user_profile = User.objects.get(pk=pk).user_profile # get user profile of the requested user
+        except (UserProfile.DoesNotExist,User.DoesNotExist) as e:
+            return HttpResponse(status=404)
+        skills = user_profile.user_skills.all() # query set
+        skill_dict = {}
+        for i, user_skill in enumerate(skills):
+            skill_dict[user_skill.id] = {"skill_name" : user_skill.skill_name,"skill_id":user_skill.id }
+            skill_dict[user_skill.id]["skill_upvotes"] = [] # declare an empty key for holding list of upvotes info to be used later
+
+        #get all user upvoted skills
+        try:
+            user_skill_upvotes_list = list(UserSkillUpvotes.objects.filter(upvote_for=pk)) # get all upvotes on skills of the requested user
         except (UserSkillUpvotes.DoesNotExist,User.DoesNotExist) as e:
             return HttpResponse(status=404)
-        serializer = UserSkillUpvotesSerializer(user_skill_upvotes,many=True)
-        print(serializer)
-        return Response(serializer.data)
+
+        serializer = UserSkillUpvotesSerializer(user_skill_upvotes_list,many=True)
+
+        #loop on list and add user who upvoted skills
+        for i in user_skill_upvotes_list:
+            skill_info={}
+            skill_info["upvote_by"]=i.upvote_by.id
+            skill_info["upvote_for"]=i.upvote_for.id
+            skill_dict[i.skill.id]["skill_upvotes"].append(skill_info)
+      
+
+        return Response(skill_dict.values())
 
     elif request.method == 'POST':
         upvote_for_user_id = request.data.get('user_for') # get the user as per id    

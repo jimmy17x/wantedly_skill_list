@@ -1,3 +1,7 @@
+
+var SESSION_EXPIRE_STATUS ="Signature has expired."; //TO_DO change to status number overriding defsult django text
+var HOST = "http://127.0.0.1:8000";
+
  function redirectIfNotLoggedIn()
  {
 
@@ -9,9 +13,20 @@
     }else
     {
       activateLoginDiv();
+      showDOMElementsAsPerSession(false);
     }
 
  }
+   function showDOMElementsAsPerSession(isVisible)
+    {
+      $('#logout').hide();
+
+      if(isVisible)
+      {
+         $('#logout').show();
+      }
+     
+    }
 
 function hideAllContent()
 {
@@ -42,11 +57,10 @@ function clearLocalStorage()
   localStorage.clear();
 }
 
-
-function getUserSkills()
+/**************  end point calls ***************************/
+function getUserSkills(callback)
 {
   var user = JSON.parse(localStorage.user);
-  console.log("user pk : " + user.pk);
   if(!user)
   {
     somethingWentWrongHandler();
@@ -55,20 +69,34 @@ function getUserSkills()
 
    $.ajax({
         type: 'GET',
-        url: 'http://127.0.0.1:8000/api/v1/user/skills/'+user.pk,
+        url: HOST+'/api/v1/user/skills/'+user.pk,
         beforeSend: function(xhr) {
           if (localStorage.token) {
             xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.token);
           }
         },
         success: function(data) {
-          alert('Hello ' + data );
+          if(callback)
+            callback();
         },
-        error: function() {
+        error: function(data) {
+
+            if(data.responseJSON.detail === SESSION_EXPIRE_STATUS)
+            {
+                alert("You have been logged out , please login again");
+                activateLoginDiv();
+                clearLocalStorage();
+                return;
+            }
+
             somethingWentWrongHandler();
         }
       });
 }
+
+
+/**************  end point calls  ends here***************************/
+
 
  $(document).ready(function() {
 
@@ -102,8 +130,11 @@ function getUserSkills()
           localStorage.token = data.token;
           localStorage.user = JSON.stringify(data.user); 
 
-          activateProfileDiv();
-          getUserSkills();
+          //callback after getting user skills
+          getUserSkills( function (){
+              activateProfileDiv();
+              showDOMElementsAsPerSession(true)
+          } );
         },
         error: function() {
           alert("Login Failed , please try again !");
@@ -113,5 +144,9 @@ function getUserSkills()
 
     $('#logout').click(function() {
         clearLocalStorage();
+        activateLoginDiv();
+        showDOMElementsAsPerSession(false);
     });
+
+  
   });
