@@ -10,15 +10,19 @@ class Skill (models.Model):
     skill_name = models.CharField(max_length=100,unique=True)
     class Meta:
         app_label = "wantedly_webapp"
+        unique_together = (('skill_name',),)
+
 
 # This class will more or less map to a table in the database and defines the many to many relationship between user-skill, this is our intermediate model
 class UserSkill(models.Model):
     """ A Model for representing skill in user profile """
-    unique_together = (('user', 'skill_item'),)
 
     user = models.ForeignKey('UserProfile',on_delete=models.CASCADE,related_name='current_user_skills')
 
     skill_item = models.ForeignKey(Skill,on_delete=models.CASCADE,null=True)
+
+    class Meta:
+        unique_together = (('user', 'skill_item',),)
 
     def __str__(self):
         """Return a human readable representation of the model instance."""
@@ -40,10 +44,11 @@ def create_user_profile(sender, instance, created, **kwargs):
 post_save.connect(create_user_profile, sender=User)
 
 class UserSkillUpvotes(models.Model):
-    unique_together = (('user_skill', 'upvote_by'),)
     skill = models.ForeignKey('Skill',on_delete=models.CASCADE , related_name='all_upvote_for_user_skill')
     upvote_by =  models.ForeignKey('auth.User',on_delete=models.CASCADE , related_name='all_upvote_by_user') 
     upvote_for = models.ForeignKey('auth.User',on_delete=models.CASCADE , related_name='all_upvote_for_user')
+    class Meta:
+        unique_together = (('skill', 'upvote_by','upvote_for'),)
 
    
 

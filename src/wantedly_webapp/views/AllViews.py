@@ -103,7 +103,7 @@ def user_skill_upvotes(request,pk):
         upvoted_skill_id = request.data.get('skill_id')
 
         #validate if the user actually has thats skill - in case client side validations are compromised
-        user = request.user;
+        user = User.objects.get(pk=upvote_for_user_id)
         try:
             user.user_profile.user_skills.get(pk=upvoted_skill_id)
         except Skill.DoesNotExist:
