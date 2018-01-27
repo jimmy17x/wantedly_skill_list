@@ -1,7 +1,7 @@
 
 var SESSION_EXPIRE_STATUS ="Signature has expired."; //TO_DO change to status number overriding defsult django text
 var HOST = "http://127.0.0.1:8000";
-var TTL_DEDICATED_SKILLS = 3; // total number of top votes skills which should have dedicated rows
+var TTL_DEDICATED_SKILLS = 1000; // total number of top votes skills which should have dedicated rows
 
 
 
@@ -20,10 +20,24 @@ function setUpProfileSkills(data)
     while( i < ttl_skills && i < TTL_DEDICATED_SKILLS)
     {
       html +="<div class = 'skill-dedicated-row'> \
-                       <span class = 'upvote-count' id = 'skill-id-'"+data[i].skill_id+">"+data[i].skill_upvotes.length + "</span><span class = 'row-skill-name'>" +data[i].skill_name + "</span>\
-                       <hr class = 'skill-row-hr'>\
-                    </div> <!-- skill-dedicated-row ends here -->\
-                ";
+                       <span class = 'upvote-count' id = 'skill-id-"+data[i].skill_id+"'>"+data[i].skill_upvotes.length + "</span><span class = 'row-skill-name'>" +data[i].skill_name + "</span>\
+                       <hr class = 'skill-row-hr'>";
+
+       // for each skill get the user who upvoted it  
+        html += " <div class = 'user-who-upvoted'>";
+       //TO_DO handle dom if user upvoting skill exceeds the width of row
+
+       for(var j = 0 ; j < data[i].skill_upvotes.length; ++j)
+       {
+         html+="<img class = 'userupvote-by' id = 'user-"+data[i].skill_upvotes[j].upvote_by
+             +"' data-user-info= '" + data[i].skill_upvotes[j].upvote_by_username +  "' src = '"+data[i].skill_upvotes[j].upvote_by_user_image+"' >"
+         
+                    
+       }
+
+      
+      html+="   </div><!-- user who upvoted ends here --> \
+             </div> <!-- skill-dedicated-row ends here -->";       
 
       ++i;
     } 
@@ -72,7 +86,13 @@ function activateProfileDiv()
 {
   // activate profile div and hide others
   hideAllContent();
+  // delete user skill rows
+  $(".skill-dedicated-row").remove();
   $("#user-profile").show();
+  //update username of profile 
+  var user = JSON.parse(localStorage.user);
+  $("#profile-heading").text("What " +user.username + " is good at");
+
 }
 function activateLoginDiv()
 {
@@ -148,6 +168,8 @@ function getUserSkills(callback)
 
     // pace plugin setup - ajax loader
     $(document).ajaxStart(function() { Pace.restart(); });
+
+
 
     redirectIfNotLoggedIn();
 

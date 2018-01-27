@@ -26,6 +26,12 @@ body
 	float:left;
 }
 
+.userupvote-by img
+{
+	width:45px;
+	height:45px;
+}
+
 .skill-row-hr
 {
 	color: #0000;
@@ -35,7 +41,7 @@ body
 	margin-top: 17px;
 }
 
-.upvote-count
+.upvote-count, .userupvote-by
 {
 	border: 2px solid #00A4BB;
 	border-radius: 18px;
@@ -98,6 +104,37 @@ body
 	color: #0000008c;
 }
 
+.user-who-upvoted
+{
+	float:left;
+	width: 100px;
+}
+
+.userupvote-by
+{
+	float: left;
+	padding: 3px;
+	margin-left: 8px;
+	border: none;
+	background: #00000029;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.user-who-upvoted span
+{
+	color:white;
+	margin-left:15px;
+	background:#00A4BB;
+	border:none;
+	cursor:pointer;
+}
+
+.userupvote-by:hover
+{
+	background: #77a4b787;
+}
+
 .btn:hover
 {
 	background: #00a4bb99;
@@ -117,8 +154,13 @@ body
 
 .skills-section
 {
-	width:500px;
+	width: 551px;
 	margin: 0 auto;
+}
+
+.tooltip_templates 
+{
+	 display: none; 
 }
 
 /****** SMALLER SCREENS & MOBILE ********/
@@ -129,3 +171,4 @@ body
 		width:100%;
 	}
 }
+
