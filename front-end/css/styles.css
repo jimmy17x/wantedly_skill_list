@@ -8,11 +8,46 @@ body
 	height:35px;
 	padding:7px;
 	margin-right:200px;
+	display: none;
 }
 
+.skill-dedicated-row
+{
+	clear:both;
+	padding: 15px;
+}
 .deactive
 {
 	display:none;
+}
+
+.skill-dedicated-row span
+{
+	float:left;
+}
+
+.skill-row-hr
+{
+	color: #0000;
+	border-width: 0.5px;
+	width: 221px;
+	float: left;
+	margin-top: 17px;
+}
+
+.upvote-count
+{
+	border: 2px solid #00A4BB;
+	border-radius: 18px;
+	padding: 6px;
+	font-size: 19px;
+	padding-left: 11px;
+	padding-top: 7px;
+	width: 15px;
+	color: #00A4BB;
+	height: 16px;
+	padding-bottom: 10px;
+	display: block;
 }
 
 .form-elements {
@@ -55,6 +90,14 @@ body
 	font-size:20px;
 }
 
+.row-skill-name
+{
+	display:block;
+	margin: 9px 0 0 20px;
+	width:80px;
+	color: #0000008c;
+}
+
 .btn:hover
 {
 	background: #00a4bb99;
@@ -64,6 +107,7 @@ body
 {
 	text-align:center;
 	margin-top: 50px;
+	clear: both;
 }
 
 .right-float
@@ -71,6 +115,11 @@ body
 	float:right;
 }
 
+.skills-section
+{
+	width:500px;
+	margin: 0 auto;
+}
 
 /****** SMALLER SCREENS & MOBILE ********/
 

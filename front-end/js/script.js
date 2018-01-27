@@ -1,14 +1,49 @@
 
 var SESSION_EXPIRE_STATUS ="Signature has expired."; //TO_DO change to status number overriding defsult django text
 var HOST = "http://127.0.0.1:8000";
+var TTL_DEDICATED_SKILLS = 3; // total number of top votes skills which should have dedicated rows
+
+
+
+function setUpProfileSkills(data)
+{
+  // sort the skills data as per total number of upvotes in descending order
+  data.sort(function(skill_a,skill_b)
+    {
+      return  skill_b.skill_upvotes.length - skill_a.skill_upvotes.length;
+    })
+
+    var i = 0 ,ttl_skills = data.length;
+
+    var html="";
+
+    while( i < ttl_skills && i < TTL_DEDICATED_SKILLS)
+    {
+      html +="<div class = 'skill-dedicated-row'> \
+                       <span class = 'upvote-count' id = 'skill-id-'"+data[i].skill_id+">"+data[i].skill_upvotes.length + "</span><span class = 'row-skill-name'>" +data[i].skill_name + "</span>\
+                       <hr class = 'skill-row-hr'>\
+                    </div> <!-- skill-dedicated-row ends here -->\
+                ";
+
+      ++i;
+    } 
+
+    $(".skills-section").append(html);
+}
+
 
  function redirectIfNotLoggedIn()
  {
-
+    // get user skills and set the profile of user
     if(localStorage.token)
     {
-       activateProfileDiv();
-       getUserSkills(); // get user skills and set the profile of user
+       getUserSkills(function(data)
+       {
+          activateProfileDiv();
+          showDOMElementsAsPerSession(true);
+          setUpProfileSkills(data);
+       }); 
+
 
     }else
     {
@@ -48,7 +83,11 @@ function activateLoginDiv()
 function somethingWentWrongHandler()
 {
 
-   alert("Something went wrong , please try again !");
+  $.alert({
+    title: 'Alert!',
+    content: 'Something went wrong , please try again !',
+    useBootstrap: false
+  });
    redirectIfNotLoggedIn();
 }
 
@@ -58,6 +97,8 @@ function clearLocalStorage()
 }
 
 /**************  end point calls ***************************/
+
+//get user skills with upvote info
 function getUserSkills(callback)
 {
   var user = JSON.parse(localStorage.user);
@@ -69,7 +110,7 @@ function getUserSkills(callback)
 
    $.ajax({
         type: 'GET',
-        url: HOST+'/api/v1/user/skills/'+user.pk,
+        url: HOST+'/api/v1/user/skill/upvotes/'+user.pk,
         beforeSend: function(xhr) {
           if (localStorage.token) {
             xhr.setRequestHeader('Authorization', 'JWT ' + localStorage.token);
@@ -77,13 +118,18 @@ function getUserSkills(callback)
         },
         success: function(data) {
           if(callback)
-            callback();
+            callback(data);
         },
         error: function(data) {
 
-            if(data.responseJSON.detail === SESSION_EXPIRE_STATUS)
+            if(!data.responseJSON  || data.responseJSON.detail === SESSION_EXPIRE_STATUS)
             {
-                alert("You have been logged out , please login again");
+
+                $.alert({
+                  title: 'Logged out !',
+                  content: 'Please login again !',
+                  useBootstrap: false
+                });
                 activateLoginDiv();
                 clearLocalStorage();
                 return;
@@ -113,7 +159,11 @@ function getUserSkills(callback)
 
       if(!username || !password)
       {
-        alert("Please enter username and password");
+         $.alert({
+                  title: 'Alert',
+                  content: 'Please provide all details',
+                  useBootstrap: false
+                });
         return;
       }
 
@@ -131,13 +181,19 @@ function getUserSkills(callback)
           localStorage.user = JSON.stringify(data.user); 
 
           //callback after getting user skills
-          getUserSkills( function (){
+
+          getUserSkills( function (data){
               activateProfileDiv();
-              showDOMElementsAsPerSession(true)
+              showDOMElementsAsPerSession(true);
+              setUpProfileSkills(data);
           } );
         },
         error: function() {
-          alert("Login Failed , please try again !");
+           $.alert({
+                  title: 'Log in failed ',
+                  content: 'Please login again !',
+                  useBootstrap: false
+                });
         }
       });
     });
