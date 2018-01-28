@@ -1,0 +1,45 @@
+29 ALLOWED_HOSTS = ['softxide.pythonanywhere.com',]
+ 30 
+ 31 
+ 32 # Application definition
+ 33 
+ 34 INSTALLED_APPS = [
+ 35     'django.contrib.admin',
+ 36     'django.contrib.auth',
+ 37     'django.contrib.contenttypes',
+ 38     'django.contrib.sessions',
+ 39     'django.contrib.messages',
+ 40     'django.contrib.staticfiles',
+ 41     'rest_framework',
+ 42     'rest_auth',
+ 43     'django.contrib.sites',
+ 44     'allauth',
+ 45     'allauth.account',
+ 46     'rest_auth.registration',
+ 47     'api',
+ 48     'rest_framework.authtoken',
+ 49     'wantedly_webapp',
+ 50     'corsheaders',
+ 51 ]
+ 52 
+ 53 MIDDLEWARE = [
+ 54     'django.middleware.security.SecurityMiddleware',
+ 55     'django.contrib.sessions.middleware.SessionMiddleware',
+ 56     'django.middleware.common.CommonMiddleware',
+ 57     'django.middleware.csrf.CsrfViewMiddleware',
+ 58     'django.contrib.auth.middleware.AuthenticationMiddleware',
+ 59     'django.contrib.messages.middleware.MessageMiddleware',
+ 60     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+ 61     'corsheaders.middleware.CorsMiddleware',
+ 62     'django.middleware.common.CommonMiddleware',
+ 63 ]
+ 64 
+ 65 CORS_ORIGIN_ALLOW_ALL = True
+ 66 
+ 67 ROOT_URLCONF = 'wantedly_webapp.urls'
+ 68 
+ 69 TEMPLATES = [
+ 70     {
+ 71         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+ 72         'DIRS': [
+ 73                 '/home/softxide/wantedly_skill_list/front-end/html',

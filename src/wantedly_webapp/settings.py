@@ -26,7 +26,7 @@ SECRET_KEY = 'r!u^3p0j+1=y3)d4iu4sgj5fye76)yng9_g56-ixy3y@3hfn7z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['softxide.pythonanywhere.com','localhost']
 
 
 # Application definition
