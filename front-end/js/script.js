@@ -1,6 +1,6 @@
 
 var SESSION_EXPIRE_STATUS ="Signature has expired."; //TO_DO change to status number overriding defsult django text
-var HOST = "http://127.0.0.1:8000";
+var HOST = "http://softxide.pythonanywhere.com";
 var TTL_DEDICATED_SKILLS = 1000; // total number of top votes skills which should have dedicated rows
 
 

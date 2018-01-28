@@ -93,7 +93,7 @@ def user_skill_upvotes(request,pk):
             skill_info["upvote_by"]=i.upvote_by.id
             skill_info["upvote_for"]=i.upvote_for.id
             skill_info["upvote_by_username"]=i.upvote_by.username
-            skill_info["upvote_by_user_image"]="../assets/user-default.png" #assuming user image is already there
+            skill_info["upvote_by_user_image"]="/static/assets/user-default.png" #assuming user image is already there
 
             skill_dict[i.skill.id]["skill_upvotes"].append(skill_info)
       

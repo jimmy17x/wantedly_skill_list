@@ -69,7 +69,9 @@ ROOT_URLCONF = 'wantedly_webapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+                'C:/code/django/wantedly/front-end/html',
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,11 +136,26 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    'C:/code/django/wantedly/front-end/',
+]
+
 # Configure the JWTs to expire after 1 hour, and allow users to refresh near-expiration tokens
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
     'JWT_ALLOW_REFRESH': True,
 }
+
+
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.load_template_source',
+    'django.template.loaders.app_directories.load_template_source',
+#     'django.template.loaders.eggs.Loader',
+)
 
 # Make JWT Auth the default authentication mechanism for Django
 REST_FRAMEWORK = {
