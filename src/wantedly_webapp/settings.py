@@ -90,8 +90,11 @@ WSGI_APPLICATION = 'wantedly_webapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dcf8hdle88jpg1', 
+         'USER': 'sflkigsckhqbsq',
+         'PASSWORD': '8580099638f77dede262bb75eaad7426860c259a29d7ac2928fa5575531ad3e8',
+         'HOST': 'postgres://sflkigsckhqbsq:8580099638f77dede262bb75eaad7426860c259a29d7ac2928fa5575531ad3e8@ec2-54-163-228-190.compute-1.amazonaws.com:5432/dcf8hdle88jpg1'
     }
 }
 
