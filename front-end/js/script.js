@@ -191,7 +191,7 @@ function getUserSkills(callback)
 
       $.ajax({
         type: "POST",
-        url: "http://localhost:8000/rest-auth/login/",
+        url: HOST+"/rest-auth/login/",
         data: {
           username: username,
           password: password

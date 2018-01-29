@@ -1,6 +1,6 @@
 Learning Python Django framework by implementing Wanteldy Skill list and skill recommendation REST webapp 
 
-The demo app is hosted here - http://softxide.pythonanywhere.com/
+The demo app is hosted here - http://softxide.pythonanywhere.com/ - dummy user - okuser1 , password : password@123
 The related stackoverflow questions asked during leanring this project can be found here
 https://stackoverflow.com/users/2442565/divyanshu-jimmy?tab=questions&sort=newest
 
