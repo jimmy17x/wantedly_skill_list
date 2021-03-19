@@ -15,7 +15,7 @@ setup(
 		'Django==2.0',
 		'django-allauth==0.34.0',
 		'django-rest-auth==0.9.2',
-		'djangorestframework==3.7.7',
+		'djangorestframework==3.11.2',
 		'djangorestframework-jwt==1.11.0',
 		'idna==2.6',
 		'oauthlib==2.0.6',
